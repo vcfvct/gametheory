@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>IGNORED</title>
+</h:head>
+
+<h:body>
+	<ui:composition>
+		<h:outputScript library="javax.faces" name="jsf.js" target="body" />
+
+
+		<div class="post">
+
+			
+			<p class="meta">&nbsp;</p>
+			<div class="entry">
+				<p:growl id="growl" showDetail="true" sticky="true" />
+				<h:form id="gameListForm">
+
+					<p:dataTable id="waitingGamesTable" var="game"
+						value="#{gameManager.waitingGameList}"
+						rowKey="#{game.firstPlayerName}" paginator="true"
+						rowClasses="odd, even" rows="10" rowsPerPageTemplate="10, 25"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+						sortBy="#{game.firstPlayerName}" selectionMode="single">
+						<f:facet name="header">  
+          					<h2 > Waiting Games</h2>
+        				</f:facet>
+
+						<p:column sortBy="#{game.firstPlayerName}"
+							filterBy="#{game.firstPlayerName}" resizable="false">
+							<f:facet name="header">
+								<h:outputText value="Creator Name" />
+							</f:facet>
+							<h:outputText value="#{game.firstPlayerName}" />
+						</p:column>
+
+						<p:column sortBy="#{game.createdDate}"
+							filterBy="#{game.createdDate}" resizable="false">
+							<f:facet name="header">
+								<h:outputText value="Basic info" />
+							</f:facet>
+							<h:outputText value="#{game.createdDate}" />
+						</p:column>
+
+						<p:column style="width:40px">
+							<h:panelGrid columns="3" cellpadding="2">
+								<p:commandButton id="selectButton"
+									action="#{gameManager.joinWaitingGame}"
+									icon="ui-icon-circle-arrow-w" title="Join" value="Join"
+									update=":growl">
+									<f:setPropertyActionListener value="#{game}"
+										target="#{gameManager.currentGame}" />
+								</p:commandButton>
+							</h:panelGrid>
+						</p:column>
+
+						<p:column style="width:40px">
+							<h:panelGrid>
+								<p:commandButton id="deleteButton"
+									action="#{gameManager.removeGame}" icon="ui-icon-cancel"
+									title="Remove" value="Remove" update=":growl,@form">
+									<f:setPropertyActionListener value="#{game}"
+										target="#{gameManager.currentGame}" />
+								</p:commandButton>
+							</h:panelGrid>
+						</p:column>
+					</p:dataTable>
+				</h:form>
+
+
+			</div>
+
+			
+			<p class="meta">&nbsp;</p>
+			<div class="entry">
+
+				<h:form id="activeGameForm">
+					<p:dataTable id="activeGamesTable" var="game"
+						value="#{gameManager.activeGameList}"
+						rowKey="#{game.firstPlayerName}" paginator="true"
+						rowClasses="odd, even" rows="10" rowsPerPageTemplate="10, 25"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+						sortBy="#{game.firstPlayerName}" selectionMode="single">
+						<f:facet name="header">  
+          					<h2 > Active Games</h2>
+        				</f:facet>
+
+						<p:column sortBy="#{game.firstPlayerName}"
+							filterBy="#{game.firstPlayerName}" resizable="false">
+							<f:facet name="header">
+								<h:outputText value="Creator Name" />
+							</f:facet>
+							<h:outputText value="#{game.firstPlayerName}" />
+						</p:column>
+
+						<p:column sortBy="#{game.secondPlayerName}"
+							filterBy="#{game.secondPlayerName}" resizable="false">
+							<f:facet name="header">
+								<h:outputText value="Joined Player Name" />
+							</f:facet>
+							<h:outputText value="#{game.secondPlayerName}" />
+						</p:column>
+
+						<p:column sortBy="#{game.createdDate}"
+							filterBy="#{game.createdDate}" resizable="false">
+							<f:facet name="header">
+								<h:outputText value="Basic info" />
+							</f:facet>
+							<h:outputText value="#{game.createdDate}" />
+						</p:column>
+
+						<p:column style="width:40px">
+							<h:panelGrid columns="3" styleClass="actions" cellpadding="2">
+								<p:commandButton action="#{gameManager.joinActiveGame}"
+									icon="ui-icon-play" title="Play" value="Play" update=":growl">
+									<f:setPropertyActionListener value="#{game}"
+										target="#{gameManager.currentGame}" />
+								</p:commandButton>
+							</h:panelGrid>
+						</p:column>
+					</p:dataTable>
+
+
+				</h:form>
+			</div>
+
+			
+			<p class="meta">&nbsp;</p>
+			<div class="entry">
+
+				<h:form id="finishedGameForm">
+					<p:dataTable id="finishedGamesTable" var="game"
+						value="#{gameManager.finishedGameList}"
+						rowKey="#{game.firstPlayerName}" paginator="true"
+						rowClasses="odd, even" rows="10" rowsPerPageTemplate="10, 25"
+						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+						sortBy="#{game.firstPlayerName}" selectionMode="single">
+						<f:facet name="header">  
+          					 <h2 >Finished Games</h2>
+        				</f:facet>
+						<p:column sortBy="#{game.firstPlayerName}"
+							filterBy="#{game.firstPlayerName}" resizable="false">
+							<f:facet name="header">
+								<h:outputText value="Creator Name" />
+							</f:facet>
+							<h:outputText value="#{game.firstPlayerName}" />
+						</p:column>
+
+						<p:column sortBy="#{game.secondPlayerName}"
+							filterBy="#{game.secondPlayerName}" resizable="false">
+							<f:facet name="header">
+								<h:outputText value="Joined Player Name" />
+							</f:facet>
+							<h:outputText value="#{game.secondPlayerName}" />
+						</p:column>
+
+						<p:column sortBy="#{game.createdDate}"
+							filterBy="#{game.createdDate}" resizable="false">
+							<f:facet name="header">
+								<h:outputText value="Basic info" />
+							</f:facet>
+							<h:outputText value="#{game.createdDate}" />
+						</p:column>
+
+						<p:column style="width:40px">
+							<h:panelGrid columns="3" styleClass="actions" cellpadding="2">
+								<p:commandButton action="#{gameManager.seeGameReport}"
+									icon="ui-icon-search" title="See" value="Report" update=":growl">
+									<f:setPropertyActionListener value="#{game}"
+										target="#{gameManager.currentGame}" />
+								</p:commandButton>
+							</h:panelGrid>
+						</p:column>
+					</p:dataTable>
+
+
+				</h:form>
+			</div>
+		</div>
+
+
+	</ui:composition>
+</h:body>
+</html>

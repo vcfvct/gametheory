@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+
+<!-- This is a reusable template that lays out content in four regions:
+       a header, menu, content area, and toolbar. 
+        
+       All of the DIVs in this file with ids have corresponding CSS styles 
+       in resources/css/styles.css. We've decorated the header to illustrate
+       the use of decorators.
+  -->
+
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<!--Templates are typically not compositions; therefore, the title that
+        follows is not ignored. Fragments and decorators, on the other hand,
+        are almost always compositions -->
+	<title><ui:insert name="windowTitle" /></title>
+</h:head>
+
+<h:body>
+	<h:outputStylesheet library="css" name="style.css" target="body" />
+	<!--  <h:outputStylesheet library="css" name="primefaces-dark-hive/theme.css" target="body"/>	-->
+
+	<div id="logo">
+		<h1>
+			<a href="#"><h:outputText value="#{msgs.apptitle}"></h:outputText></a>
+		</h1>
+	</div>
+	<hr />
+	<!-- end #logo -->
+
+	<ui:decorate template="/decorators/masterHeader.xhtml">
+		<ui:insert name="header" />
+	</ui:decorate>
+
+	<div id="page">
+		<div id="content">
+			<ui:insert name="content" />
+		</div>
+
+		<div id="sidebar">
+			<ui:insert name="sidebar" />
+		</div>
+
+		<div style="clear: both;">&nbsp;</div>
+
+	</div>
+
+	<ui:decorate template="/decorators/masterFooter.xhtml">
+		<ui:insert name="footer" />
+	</ui:decorate>
+
+</h:body>
+</html>

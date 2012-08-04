@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:clarity="http://clarity/facelets/debug"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>IGNORED</title>
+</h:head>
+
+<h:body>
+	<ui:composition>
+		<h:outputScript library="javax.faces" name="jsf.js" target="body" />
+
+
+		<div class="post">
+			<h2 class="title">Login</h2>
+			<p class="meta">&nbsp;</p>
+			<div class="entry">
+				<!--  <h:messages style="color: red" showDetail="true" showSummary="false" />-->
+				<p:growl showDetail="true" sticky="true" id="growl"></p:growl>
+				<h:form id="login">
+					<p:panel id="panel" header="Login to System">
+						<p:focus context="login" />
+						<h:panelGrid columns="2" border="0">
+							<h:outputLabel for="username" value="Username: *" />
+							<p:inputText id="username" required="true"
+								value="#{userManager.potentialUser.username}">
+								<f:validateLength minimum="2" />
+							</p:inputText>
+							<h:outputText value="Password: *" />
+							<p:password id="password"
+								value="#{userManager.potentialUser.password}" />
+						</h:panelGrid>
+						<p:commandButton id="submit" type="submit" value="Login"
+							action="#{userManager.validateUser}" update=":growl"/>
+					</p:panel>
+					<br />
+
+				</h:form>
+				<!--			    <div class="error">-->
+				<!--			      <h:messages layout="table"/>-->
+				<!--			    </div>	    -->
+			</div>
+		</div>
+
+
+	</ui:composition>
+</h:body>
+</html>

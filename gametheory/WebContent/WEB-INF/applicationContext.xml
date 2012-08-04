@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns:context="http://www.springframework.org/schema/context" 
+		 xmlns:p="http://www.springframework.org/schema/p" 
+         xmlns:aop="http://www.springframework.org/schema/aop"
+         xmlns:tx="http://www.springframework.org/schema/tx"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    
+	<!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+	<!-- (in this case, JDBC-related settings for the dataSource definition below) -->
+	<context:property-placeholder location="classpath:cms.properties"/>
+	
+	<!-- Configuration -->
+<!--	<bean id="config" class="com.verisign.configuration.Configuration" init-method="init" destroy-method="cleanUp">-->
+<!--	    <constructor-arg type="java.lang.String" value="${CONFIG_FILE_NAME}"/>-->
+<!--	</bean>-->
+
+    <!-- Service layer bean definitions -->
+    
+	<!--
+		Activates various annotations to be detected in bean classes: Spring's
+		@Service, @Component, @Required and @Autowired, as well as JSR 250's @PostConstruct,
+		@PreDestroy and @Resource (if available) and JPA's @PersistenceContext
+		and @PersistenceUnit (if available).
+	-->
+	<context:annotation-config/>
+    <context:spring-configured/>
+	<context:component-scan base-package="com.golookon"/>
+			
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+	
+
+	<!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+	<!-- (in this case, JDBC-related settings for the dataSource definition below) -->
+<!--	<context:property-placeholder location="classpath:mds.properties"/>-->
+	
+	<!--
+		C3P0 for connection pooling. 
+	-->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"	destroy-method="close"
+		p:driverClass="${JDBC_DRIVER_CLASS_NAME}" 
+		p:jdbcUrl="jdbc:mysql://${JDBC_HOST}:${JDBC_PORT}/${JDBC_SCHEMA}${JDBC_CONNECTION_PROPERTIES}" 
+		p:user="${JDBC_USER_NAME}" 
+		p:password="${JDBC_PASSWORD}" 
+		p:minPoolSize="${C3P0_MIN_POOL_SIZE}" 
+		p:maxPoolSize="${C3P0_MAX_POOL_SIZE}" 
+		p:maxStatements="${C3P0_MAX_STATEMENTS}" 
+		p:maxIdleTime="${C3P0_MAX_IDLE_TIME}" 
+		p:maxIdleTimeExcessConnections="${C3P0_MAX_IDLE_TIME_EXCESS_CONNECTIONS}" 
+		p:acquireRetryAttempts="${C3P0_ACQUIRE_RETRY_ATTEMPTS}" 
+		p:acquireRetryDelay="${C3P0_ACQUIRE_RETRY_DELAY}" />
+
+
+	<!-- JPA EntityManagerFactory -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		p:dataSource-ref="dataSource">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+				p:database="${HIBERNATE_DATABASE}" p:showSql="${HIBERNATE_SHOW_SQL}" p:generateDdl="${HIBERNATE_GENERATE_DDL}" p:databasePlatform="${HIBERNATE_DIALECT}"/>
+		</property>
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+			p:entityManagerFactory-ref="entityManagerFactory"/>
+
+
+	<!--
+		Instruct Spring to perform declarative transaction management
+		automatically on annotated classes.
+	-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<!--
+		Post-processor to perform exception translation on @Repository classes (from native
+		exceptions such as JPA PersistenceExceptions to Spring's DataAccessException hierarchy).
+	-->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+	
+
+</beans>

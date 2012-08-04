@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>IGNORED</title>
+</h:head>
+
+<h:body>
+	<ui:composition template="/templates/masterLayout.xhtml">
+		<ui:define name="windowTitle">
+	    Rules
+      </ui:define>
+
+		<ui:define name="header">
+			<ui:include src="/decorators/header.xhtml" />
+		</ui:define>
+		<ui:define name="content">
+			<ui:include src="/sections/rules/content.xhtml" />
+		</ui:define>
+		<ui:define name="sidebar">
+			<ui:include src="/sections/rules/sidebar.xhtml" />
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/decorators/footer.xhtml" />
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

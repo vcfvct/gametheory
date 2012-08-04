@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>IGNORED</title>
+</h:head>
+
+<h:body>
+	<ui:composition>
+		<h:outputScript library="javax.faces" name="jsf.js" target="body" />
+
+
+					<div class="post">
+				<h2 class="title">Learn Game theory here</h2>
+				<p class="meta">&nbsp;</p>
+				<div class="entry">
+<!--  
+					<p:panelGrid columns="2" style="margin-bottom:20px;width:400px">
+						<f:facet name="header">  
+     					  Game Parameters
+    					</f:facet>
+						<h:outputLabel value="Earning" />
+						<h:outputText value="#{msgs.earning}" />
+						<h:outputLabel value="Schooling Expense" />
+						<h:outputText value="-#{msgs.schooling}" />
+						<h:outputLabel value="Illicit Compelition Fine" />
+						<h:outputText value="-#{msgs.bigFine}" />
+						<h:outputLabel value="Avoidance of Responsibility Fine" />
+						<h:outputText value="-#{msgs.smallFine}" />
+						<h:outputLabel value="Compensation" />
+						<h:outputText value="#{msgs.compensation}" />
+					</p:panelGrid>
+-->					
+					
+					<p:panel header="Basic Rules:"
+						footer="Game theory By John F. Sacco, GMU"
+						style="margin-bottom:20px">
+						
+						<p:panelGrid columns="2" style="margin-bottom:20px">
+							<f:facet name="header">  
+     					  		  Score = Earning + Schooling + Fine
+    						</f:facet>
+
+							<h:outputLabel value="Both Schooling" />
+							<h:outputText value="No Fine; " />
+							<h:outputLabel value="One Schooling the other does not" />
+							<h:outputText value="the No Schooling one Fine" />
+							<h:outputText value="Neither Schooling" />
+							<h:outputLabel value="Both get Fine;" />
+		
+						</p:panelGrid>
+					</p:panel>
+<!-- 
+					<p:panelGrid style="margin-bottom:20px; text-align:center">
+						<f:facet name="header">
+							<p:row>
+								<p:column colspan="4">Rule Table</p:column>
+							</p:row>
+						</f:facet>
+						<p:row>
+							<p:column colspan="2" rowspan="2"></p:column>
+							<p:column colspan="2" styleClass="company1">Company 1</p:column>
+						</p:row>
+						<p:row>
+							<p:column>Schooling</p:column>
+							<p:column>No Schooling</p:column>
+						</p:row>
+						<p:row>
+							<p:column rowspan="2" styleClass="company2">Comapny 2</p:column>
+							<p:column>Schooling</p:column>
+							<p:column>
+								<h:outputText value="#{gameManager.ss}" styleClass="company1" />/<h:outputText
+									value="#{gameManager.ss}" styleClass="company2" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{gameManager.sn_s}" styleClass="company1" />/<h:outputText
+									value="#{gameManager.sn_n}" styleClass="company2" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>No Schooling</p:column>
+							<p:column>
+								<h:outputText value="#{gameManager.sn_n}" styleClass="company1" />/<h:outputText
+									value="#{gameManager.sn_s}" styleClass="company2" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{gameManager.nn}" styleClass="company1" />/<h:outputText
+									value="#{gameManager.nn}" styleClass="company2" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+ -->
+
+
+				</div>
+			</div>
+
+
+
+
+	</ui:composition>
+</h:body>
+</html>

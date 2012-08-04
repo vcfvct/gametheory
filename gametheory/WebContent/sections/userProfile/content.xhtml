@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:clarity="http://clarity/facelets/debug"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>IGNORED</title>
+</h:head>
+
+<h:body>
+	<ui:composition>
+		<h:outputScript library="javax.faces" name="jsf.js" target="body" />
+
+
+		<div class="post">
+			<h2 class="title">User Profile Information</h2>
+			<p class="meta">&nbsp;</p>
+			<div class="entry">
+				<p:panel id="panel" header="User Profile">
+					<h:panelGrid columns="2">
+						<h:outputLabel for="username" value="username:" />
+						<h:outputLabel value="#{userManager.currentUser.username}" />
+						
+						<h:outputLabel value="firstname: " />
+						<h:outputLabel value="#{userManager.currentUser.firstname}" />
+						
+						<h:outputLabel value="lastname: " />
+						<h:outputLabel value="#{userManager.currentUser.lastname}" />
+						
+						<h:outputLabel value="email: " />
+						<h:outputLabel value="#{userManager.currentUser.email}" />
+						
+						<h:outputLabel value="phone: " />
+						<h:outputLabel value="#{userManager.currentUser.phone}" />
+						
+						
+						<h:outputLabel value="Created Date: " />
+						<h:outputLabel value="#{userManager.currentUser.createdDate}" />
+						
+					</h:panelGrid>
+				</p:panel>
+			</div>
+		</div>
+
+
+	</ui:composition>
+</h:body>
+</html>

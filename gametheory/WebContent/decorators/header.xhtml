@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:user="http://java.sun.com/jsf/composite/components/user">
+
+<h:head>
+	<title>Header Page</title>
+
+
+</h:head>
+
+<!-- The default header -->
+<h:body>
+	<ui:composition>
+		<form id="menubar">
+			<!-- 
+		<div id="menu">
+			<ul>
+				<li>
+					<h:outputLink id="menus" value="menus.xhtml" styleClass="first">
+						<h:outputText value="Menus"/>
+					</h:outputLink>
+				</li>
+				<li>
+					<h:outputLink id="input" value="input.xhtml">
+						<h:outputText value="Input URL"/>
+					</h:outputLink>
+				</li>
+				<li>
+					<h:outputLink id="users" value="users.xhtml">
+						<h:outputText value="Users"/>
+					</h:outputLink></li>
+				<li>
+					<h:outputLink id="addUser" value="addUser.xhtml">
+						<h:outputText value="Register"/>
+					</h:outputLink>
+				</li>
+				<li><a href="#">Globals</a></li>
+				<li><a href="#">Reports</a></li>
+				<li><a href="#">Messages</a></li>
+			</ul>
+		</div>
+		 -->
+			<p:menubar>
+				<p:menuitem value="Rules" url="rules.xhtml" icon="ui-icon-contact" />
+				<p:menuitem value="Game Lists" url="gameList.xhtml" icon="ui-icon-newwin" />
+				
+				<p:menuitem value="Register" url="addUser.xhtml" icon="ui-icon-refresh" />
+				<p:menuitem value="Users" url="users.xhtml" icon="ui-icon-disk" />
+
+				<!-- <p:menuitem value="Logout" actionListener="#{userManager.logout}" icon="ui-icon-close" />
+  -->
+			</p:menubar>
+		</form>
+		<!-- end #menu -->
+		<div id="hello">
+			<user:hello />
+		</div>
+		<!-- end User note -->
+
+	</ui:composition>
+</h:body>
+</html>

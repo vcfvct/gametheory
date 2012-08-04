@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Add User</title>
+</h:head>
+
+<h:body>
+	<ui:composition>
+		<h:outputScript library="javax.faces" name="jsf.js" target="body" />
+		<div class="post">
+			<h2 class="title">Add new User</h2>
+			<p class="meta">&nbsp;</p>
+			<div class="entry">
+
+
+				<h:form id="add">
+
+					<p:wizard widgetVar="wiz"
+						flowListener="#{userManager.onFlowProcess}">
+
+
+
+						<p:tab id="Credential" title="Credential">
+							<p:panel header="Credential Details">
+
+								<p:messages id="msgs" />
+
+								<h:panelGrid columns="2" columnClasses="label, value">
+									<h:outputLabel for="username" value="username: *" />
+									<p:inputText id="username"
+										value="#{userManager.potentialUser.username}" required="true"
+										label="username">
+										<f:validateLength minimum="2" />
+									</p:inputText>
+
+									<h:outputLabel for="password1" value="password: *" />
+									<p:password id="password1"
+										value="#{userManager.potentialUser.password}" feedback="true"
+										match="password2" label="password1" required="true" />
+
+									<h:outputLabel for="password2" value="re-input password: *" />
+									<p:password id="password2"
+										value="#{userManager.potentialUser.password}" feedback="true"
+										label="password2" required="true" />
+
+									<h:outputText value="Skip to last: " />
+									<h:selectBooleanCheckbox value="#{userManager.skip}" />
+
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+
+						<p:tab id="personal" title="Personal">
+
+							<p:panel header="Personal Details">
+
+								<p:messages errorClass="error" />
+
+								<h:panelGrid columns="2" columnClasses="label, value"
+									styleClass="grid">
+									<h:outputText value="Firstname: *" />
+									<p:inputText required="true" label="Firstname"
+										value="#{userManager.potentialUser.firstname}" />
+
+									<h:outputText value="Lastname: *" />
+									<p:inputText required="true" label="Lastname"
+										value="#{userManager.potentialUser.lastname}" />
+
+									<h:outputText value="Skip to last: " />
+									<h:selectBooleanCheckbox value="#{userManager.skip}" />
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+
+
+
+						<p:tab id="contact" title="Contact">
+							<p:panel header="Contact Information">
+
+								<p:messages errorClass="error" />
+
+								<h:panelGrid columns="2" columnClasses="label, value">
+									<h:outputText value="Email: *" />
+									<p:inputText required="true" label="Email"
+										value="#{userManager.potentialUser.email}" />
+
+									<h:outputText value="Phone: " />
+									<p:inputText value="#{userManager.potentialUser.phone}" />
+
+									
+
+									<h:outputText value="Skip to last: " />
+									<h:selectBooleanCheckbox value="#{userManager.skip}" />
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+
+						
+
+						<p:tab id="confirm" title="Confirmation">
+							<p:panel header="Confirmation">
+
+								<p:messages id="finalmsgs" />
+
+								<h:panelGrid id="confirmation" columns="2">
+									<h:outputText value="user Name: " />
+									<h:outputText styleClass="outputLabel"
+										value="#{userManager.potentialUser.username}" />
+
+									<h:outputText value="first name: " />
+									<h:outputText styleClass="outputLabel"
+										value="#{userManager.potentialUser.firstname}" />
+
+									<h:outputText value="last name: " />
+									<h:outputText styleClass="outputLabel"
+										value="#{userManager.potentialUser.lastname}" />
+
+									<h:outputText value="email: " />
+									<h:outputText styleClass="outputLabel"
+										value="#{userManager.potentialUser.email}" />
+
+									<h:outputText value="phone: " />
+									<h:outputText styleClass="outputLabel"
+										value="#{userManager.potentialUser.phone}" />
+
+
+
+									<h:outputText />
+									<h:outputText />
+								</h:panelGrid>
+
+								<p:commandButton value="Submit" update="add"
+									actionListener="#{userManager.createUser}" />
+
+							</p:panel>
+						</p:tab>
+
+					</p:wizard>
+
+				</h:form>
+			</div>
+		</div>
+	</ui:composition>
+</h:body>
+</html>

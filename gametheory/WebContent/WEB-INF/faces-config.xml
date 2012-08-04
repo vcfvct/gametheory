@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+    
+    
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+	</application>
+	<lifecycle>
+		<phase-listener>phaseListeners.AuthenticationPhaseListener</phase-listener>
+		<phase-listener>phaseListeners.MultiPageMessagesSupport</phase-listener>
+	</lifecycle>
+<!-- 	
+	<application>
+        <default-render-kit-id>PRIMEFACES_MOBILE</default-render-kit-id>
+   </application>	
+-->
+<!--    <navigation-rule>-->
+<!--       <navigation-case>-->
+<!--           <from-outcome>login</from-outcome>-->
+<!--           <to-view-id>/pages/login.faces</to-view-id>-->
+<!--           <redirect/>-->
+<!--       </navigation-case>-->
+<!--   </navigation-rule>-->
+	
+	
+</faces-config>
