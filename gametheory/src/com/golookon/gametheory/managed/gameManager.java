@@ -29,16 +29,18 @@ public class gameManager {
 	private int sn_s;
 	private int sn_n;
 	private int nn;
-	
-	private UserManager userManager;	
+
+	private UserManager userManager;
+
 	public UserManager getUserManager() {
 		return userManager;
 	}
+
 	@Autowired
 	public void setUserManager(UserManager userManager) {
 		this.userManager = userManager;
 	}
-	
+
 	public gameManager() {
 		currentGame = new Game();
 		generateScoreCriterion();
@@ -48,15 +50,12 @@ public class gameManager {
 	private void generateScoreCriterion() {
 		int earning = Integer.parseInt(getBundle().getString("earning"));
 		int schooling = Integer.parseInt(getBundle().getString("schooling"));
-		int smallFine = Integer.parseInt(getBundle().getString("smallFine"));
-		int compensation = Integer.parseInt(getBundle().getString(
-				"compensation"));
-		int bigFine = Integer.parseInt(getBundle().getString("bigFine"));
+		int newFine = Integer.parseInt(getBundle().getString("newFine"));
 
 		ss = earning - schooling;
-		sn_s = earning - schooling + compensation;
-		sn_n = earning - bigFine;
-		nn = earning - smallFine;
+		sn_s = earning - schooling;
+		sn_n = earning;
+		nn = earning - newFine;
 		System.out.println(ss + " " + sn_s + " " + sn_n + " " + nn);
 	}
 
@@ -74,7 +73,7 @@ public class gameManager {
 		game.setCreatedDate(new Date());
 		waitingGameList.add(game);
 		context.addMessage(null, new FacesMessage("Attention",
-		"A New Game Session Created"));
+				"A New Game Session Created"));
 		// return "gameList";
 	}
 
@@ -197,8 +196,10 @@ public class gameManager {
 				return "gameList?faces-redirect=true";
 			} else {
 				recordAndCleanup();
-				context.addMessage(null, new FacesMessage("Finished a round",
-						"You can select to begin a new round if the Game is not finished. "));
+				context.addMessage(
+						null,
+						new FacesMessage("Finished a round",
+								"You can select to begin a new round if the Game is not finished. "));
 				return "gameList?faces-redirect=true";
 			}
 		}
@@ -213,30 +214,70 @@ public class gameManager {
 				.getSecondPlayerChoice()));
 		pc.setRound(currentGame.getPlayerChoices().size() + 1);
 		currentGame.getPlayerChoices().add(pc);
+
 		if (currentGame.getFirstPlayerChoice() == 1
 				&& currentGame.getSecondPlayerChoice() == 1) {
+			System.out.println("Both Schooling..... ");
+			currentGame.setFirstPlayerNumberOfSchooling(currentGame
+					.getFirstPlayerNumberOfSchooling() + 1);
+			currentGame.setSecondPlayerNumberOfSchooling(currentGame
+					.getSecondPlayerNumberOfSchooling() + 1);
+			if (currentGame.getFirstPlayerNumberOfSchooling() == 2)
+				checkPreviousNoSchooling(currentGame.getPlayerChoices().size(),
+						1);
+			if (currentGame.getSecondPlayerNumberOfSchooling() == 2)
+				checkPreviousNoSchooling(currentGame.getPlayerChoices().size(),
+						2);
 			currentGame.setFirstPlayerScore(currentGame.getFirstPlayerScore()
 					+ ss);
 			currentGame.setSecondPlayerScore(currentGame.getSecondPlayerScore()
 					+ ss);
+
 		} else if (currentGame.getFirstPlayerChoice() == 1
 				&& currentGame.getSecondPlayerChoice() == 0) {
+			currentGame.setFirstPlayerNumberOfSchooling(currentGame
+					.getFirstPlayerNumberOfSchooling() + 1);
+			if (currentGame.getFirstPlayerNumberOfSchooling() == 2)
+				checkPreviousNoSchooling(currentGame.getPlayerChoices().size(),
+						1);
 			currentGame.setFirstPlayerScore(currentGame.getFirstPlayerScore()
 					+ sn_s);
 			currentGame.setSecondPlayerScore(currentGame.getSecondPlayerScore()
 					+ sn_n);
+
 		} else if (currentGame.getFirstPlayerChoice() == 0
 				&& currentGame.getSecondPlayerChoice() == 1) {
+			currentGame.setSecondPlayerNumberOfSchooling(currentGame
+					.getSecondPlayerNumberOfSchooling() + 1);
+			if (currentGame.getSecondPlayerNumberOfSchooling() == 2)
+				checkPreviousNoSchooling(currentGame.getPlayerChoices().size(),
+						2);
 			currentGame.setFirstPlayerScore(currentGame.getFirstPlayerScore()
 					+ sn_n);
 			currentGame.setSecondPlayerScore(currentGame.getSecondPlayerScore()
 					+ sn_s);
+
 		} else if (currentGame.getFirstPlayerChoice() == 0
 				&& currentGame.getSecondPlayerChoice() == 0) {
-			currentGame.setFirstPlayerScore(currentGame.getFirstPlayerScore()
-					+ nn);
-			currentGame.setSecondPlayerScore(currentGame.getSecondPlayerScore()
-					+ nn);
+			if (currentGame.getFirstPlayerNumberOfSchooling() >= 2) { // no fine
+				currentGame.setFirstPlayerScore(currentGame
+						.getFirstPlayerScore() + sn_n);
+			} else {
+				currentGame.setFirstPlayerScore(currentGame
+						.getFirstPlayerScore() + nn);
+			}
+			if (currentGame.getSecondPlayerNumberOfSchooling() >= 2) {
+				currentGame.setSecondPlayerScore(currentGame
+						.getSecondPlayerScore() + sn_n);
+			} else {
+				currentGame.setSecondPlayerScore(currentGame
+						.getSecondPlayerScore() + nn);
+			}
+		}
+		// clear every 4 rounds
+		if (currentGame.getPlayerChoices().size() % 4 == 0) {
+			currentGame.setSecondPlayerNumberOfSchooling(0);
+			currentGame.setFirstPlayerNumberOfSchooling(0);
 		}
 		currentGame.setFirstPlayerChoice(-1);
 		currentGame.setSecondPlayerChoice(-1);
@@ -244,9 +285,11 @@ public class gameManager {
 		if (currentGame.getRound() == currentGame.getPlayerChoices().size()) {
 			finishedGameList.add(currentGame);
 			activeGameList.remove(currentGame);
-			//TODO update score in Modal
-			userManager.updateScore(currentGame.getFirstPlayerId(), currentGame.getFirstPlayerScore());
-			userManager.updateScore(currentGame.getSecondPlayerId(), currentGame.getSecondPlayerScore());
+			// update score in Modal
+			userManager.updateScore(currentGame.getFirstPlayerId(),
+					currentGame.getFirstPlayerScore());
+			userManager.updateScore(currentGame.getSecondPlayerId(),
+					currentGame.getSecondPlayerScore());
 			userManager.loadUsers();
 		}
 	}
@@ -267,8 +310,25 @@ public class gameManager {
 			return "No Schooling";
 		return "Schooling";
 	}
-	
-	public String seeGameReport(){
+
+	private void checkPreviousNoSchooling(int currentRound, int player) {
+		System.out.println("Enter check for: " + player);
+		for (int i = (currentRound-1)/4*4; i < currentRound - 1; i++) {
+			PlayerChoice pc = currentGame.getPlayerChoices().get(i);
+			if (pc.getFirstPlayerChoice().equals("No Schooling")
+					&& pc.getSecondPlayerChoice().equals("No Schooling")) {
+				if (player == 1) {
+					currentGame.setFirstPlayerScore(currentGame
+							.getFirstPlayerScore() + 15);
+				} else {
+					currentGame.setSecondPlayerScore(currentGame
+							.getSecondPlayerScore() + 15);
+				}
+			}
+		}
+	}
+
+	public String seeGameReport() {
 		return "gameReport?faces-redirect=true";
 	}
 

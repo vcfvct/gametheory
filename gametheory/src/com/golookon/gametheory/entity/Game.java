@@ -20,6 +20,8 @@ public class Game {
 	private Date createdDate;
 	private int round;
 	private List<PlayerChoice> playerChoices;
+	private int firstPlayerNumberOfSchooling;
+	private int secondPlayerNumberOfSchooling;
 
 	private ResourceBundle bundle;
 
@@ -36,7 +38,7 @@ public class Game {
 	public Game() {
 		playerChoices = new ArrayList<PlayerChoice>();
 		round = Integer.parseInt(getBundle().getString("round"))
-				- new Random().nextInt(Integer.parseInt(getBundle().getString("roundVariance")));
+				- new Random().nextInt(Integer.parseInt(getBundle().getString("roundVariance"))+1);
 	}
 
 	public Long getFirstPlayerId() {
@@ -126,5 +128,22 @@ public class Game {
 	public void setRound(int round) {
 		this.round = round;
 	}
+
+	public int getFirstPlayerNumberOfSchooling() {
+		return firstPlayerNumberOfSchooling;
+	}
+
+	public void setFirstPlayerNumberOfSchooling(int firstPlayerNumberOfSchooling) {
+		this.firstPlayerNumberOfSchooling = firstPlayerNumberOfSchooling;
+	}
+
+	public int getSecondPlayerNumberOfSchooling() {
+		return secondPlayerNumberOfSchooling;
+	}
+
+	public void setSecondPlayerNumberOfSchooling(int secondPlayerNumberOfSchooling) {
+		this.secondPlayerNumberOfSchooling = secondPlayerNumberOfSchooling;
+	}
+	
 
 }
