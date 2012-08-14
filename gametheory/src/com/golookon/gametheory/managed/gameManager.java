@@ -319,10 +319,10 @@ public class gameManager {
 					&& pc.getSecondPlayerChoice().equals("No Schooling")) {
 				if (player == 1) {
 					currentGame.setFirstPlayerScore(currentGame
-							.getFirstPlayerScore() + 15);
+							.getFirstPlayerScore() + Integer.parseInt(getBundle().getString("newFine")));
 				} else {
 					currentGame.setSecondPlayerScore(currentGame
-							.getSecondPlayerScore() + 15);
+							.getSecondPlayerScore() + Integer.parseInt(getBundle().getString("newFine")));
 				}
 			}
 		}

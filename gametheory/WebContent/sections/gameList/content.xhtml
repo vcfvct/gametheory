@@ -16,11 +16,13 @@
 <h:body>
 	<ui:composition>
 		<h:outputScript library="javax.faces" name="jsf.js" target="body" />
-
+		<h:outputScript library="javascript" name="jquery-1.7.2.min.js" />
+	<h:outputScript library="javascript" name="jquery.joyride-1.0.3.js" />
+	<h:outputStylesheet library="css" name="joyride-1.0.3.css" />
 
 		<div class="post">
 
-			
+
 			<p class="meta">&nbsp;</p>
 			<div class="entry">
 				<p:growl id="growl" showDetail="true" sticky="true" />
@@ -32,9 +34,9 @@
 						rowClasses="odd, even" rows="10" rowsPerPageTemplate="10, 25"
 						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
 						sortBy="#{game.firstPlayerName}" selectionMode="single">
-						<f:facet name="header">  
-          					<h2 > Waiting Games</h2>
-        				</f:facet>
+						<f:facet name="header">
+							<h2>Waiting Games</h2>
+						</f:facet>
 
 						<p:column sortBy="#{game.firstPlayerName}"
 							filterBy="#{game.firstPlayerName}" resizable="false">
@@ -80,7 +82,7 @@
 
 			</div>
 
-			
+
 			<p class="meta">&nbsp;</p>
 			<div class="entry">
 
@@ -91,9 +93,9 @@
 						rowClasses="odd, even" rows="10" rowsPerPageTemplate="10, 25"
 						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
 						sortBy="#{game.firstPlayerName}" selectionMode="single">
-						<f:facet name="header">  
-          					<h2 > Active Games</h2>
-        				</f:facet>
+						<f:facet name="header">
+							<h2>Active Games</h2>
+						</f:facet>
 
 						<p:column sortBy="#{game.firstPlayerName}"
 							filterBy="#{game.firstPlayerName}" resizable="false">
@@ -134,7 +136,7 @@
 				</h:form>
 			</div>
 
-			
+
 			<p class="meta">&nbsp;</p>
 			<div class="entry">
 
@@ -145,9 +147,9 @@
 						rowClasses="odd, even" rows="10" rowsPerPageTemplate="10, 25"
 						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
 						sortBy="#{game.firstPlayerName}" selectionMode="single">
-						<f:facet name="header">  
-          					 <h2 >Finished Games</h2>
-        				</f:facet>
+						<f:facet name="header">
+							<h2>Finished Games</h2>
+						</f:facet>
 						<p:column sortBy="#{game.firstPlayerName}"
 							filterBy="#{game.firstPlayerName}" resizable="false">
 							<f:facet name="header">
@@ -175,7 +177,8 @@
 						<p:column style="width:40px">
 							<h:panelGrid columns="3" styleClass="actions" cellpadding="2">
 								<p:commandButton action="#{gameManager.seeGameReport}"
-									icon="ui-icon-search" title="See" value="Report" update=":growl">
+									icon="ui-icon-search" title="See" value="Report"
+									update=":growl">
 									<f:setPropertyActionListener value="#{game}"
 										target="#{gameManager.currentGame}" />
 								</p:commandButton>
@@ -187,6 +190,7 @@
 				</h:form>
 			</div>
 		</div>
+
 
 
 	</ui:composition>
