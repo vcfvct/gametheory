@@ -31,6 +31,9 @@
 					<p:commandButton id="refresh" type="submit"
 						value="refresh Game List" action="#{gameManager.refreshList}"
 						update=":gameListForm:waitingGamesTable, :activeGameForm:activeGamesTable, :finishedGameForm:finishedGamesTable" />
+
+					<p:poll interval="5" listener="#{gameManager.refreshList}"
+						update=":gameListForm:waitingGamesTable, :activeGameForm:activeGamesTable, :finishedGameForm:finishedGamesTable" />
 				</h:form>
 			</li>
 			<li><audio controls="controls"
@@ -64,13 +67,14 @@
 			</li>
 
 		</ul>
-		
-		
+
+
 		<!-- Tip Content -->
 		<ol id="joyRideTipContent">
 			<li data-id="sidebarForm" data-text="Next" class="custom">
 				<h2>Stop #1</h2>
-				<p>You can create a new game or refresh the games table in this area. </p>
+				<p>You can create a new game or refresh the games table in this
+					area.</p>
 			</li>
 			<li data-id="gameListForm" data-text="Next"
 				data-options="tipLocation:top;tipAnimation:fade">
